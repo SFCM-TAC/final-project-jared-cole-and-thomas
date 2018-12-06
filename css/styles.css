@@ -17,10 +17,16 @@
   border-length: 10px;
   border-color: white;
 } */
-/* #canvas {
-border: 3px solid black;
 
-} */
+.container {
+  display: flex;
+}
+
+#canvas {
+border: 3px solid black;
+width: 1000px;
+
+}
 
 #answer {
   text-align: center;
@@ -40,7 +46,7 @@ border: 3px solid black;
   /* display: flex; */
   flex-direction: row;
   height: auto;
-  left: 200px;
+  display: inline-block;
 }
 
 .box {
