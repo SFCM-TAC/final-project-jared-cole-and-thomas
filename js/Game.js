@@ -3,6 +3,7 @@ var colorArray = ["#ffffe6", '#ffffb3', '#ffff80', '#ffff4d', '#ffff00', '#e6e6f
 // https://docs.google.com/spreadsheets/d/1JUNLNtl6CRTiltI8jAwZnrOFMIBA09qlZisQthpelAY/edit?usp=sharing
 // link to a spreadsheet with color information/relationships
 var activeColor = 0;
+var targetColor = null;
 var intX = 50;
 var intY = 50;
 var playerSpeed = 6;

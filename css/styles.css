@@ -29,24 +29,40 @@ width: 1000px;
 }
 
 #answer {
-  text-align: center;
-  color: white;
-  border: 3px solid #F2F2F2;
-  background-color: #06425C;
-  width: 235px;
-  height: 650px;
-  align-content: center;
-  overflow-y: auto;
-  margin: 10px;
-  padding: 5px;
+background-color: white;
+height: 170px;
+width: 170px;
+position: relative;
+left: 0px;
+top: 590px;
+border-radius: 50%;
 
 }
 
-.hud {
-  /* display: flex; */
-  flex-direction: row;
-  height: auto;
-  display: inline-block;
+#hud {
+  text-align: center;
+  color: white;
+  border: 3px solid black;
+  background-color: #06425C;
+  width: 375px;
+  height: 770px;
+  align-content: center;
+  overflow-y: auto;
+  padding: 5px;
+}
+
+#text1 {
+  z-index: 30;
+  outline: none;
+  position: relative;
+  left: 10px;
+  top: 370px;
+  color: white;
+  margin-left: 10px;
+  width: 100px;
+  padding: 10px 10px;
+  font-size: 20px;
+  border: 2px solid black;
 }
 
 .box {
