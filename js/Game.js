@@ -1,4 +1,7 @@
-
+var colorArray = ["#ffffe6", '#ffffb3', '#ffff80', '#ffff4d', '#ffff00', '#e6e6ff', '#b3b3ff', '#8080ff', '#4d4dff',
+'#0000ff', '#ffe6e6', '#ffb3b3', '#ff8080', '#ff4d4d', '#ff0000', '#c2f0c2', '#70db70', '#33cc33']
+// https://docs.google.com/spreadsheets/d/1JUNLNtl6CRTiltI8jAwZnrOFMIBA09qlZisQthpelAY/edit?usp=sharing
+// link to a spreadsheet with color information/relationships
 var activeColor = 0;
 var intX = 50;
 var intY = 50;
@@ -125,4 +128,9 @@ console.log(activeKey);
       console.log('static');
         direction = 'static';
 
+    }
+
+    function changeColor(i) {
+      activeColor = colorArray[i];
+      console.log(activeColor);
     }
