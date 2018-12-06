@@ -10,7 +10,8 @@ var activeKey;
 
 
 function setup() {
-  createCanvas(700, 600);
+  var myCanvas = createCanvas(1000, 780);
+  myCanvas.parent('canvas');
   frameRate(60);
   noStroke();
 }
