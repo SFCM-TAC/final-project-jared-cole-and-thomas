@@ -17,9 +17,8 @@ function setup() {
   var myCanvas = createCanvas(1000, 780);
   myCanvas.parent('canvas');
   frameRate(60);
-  noStroke();
+  updateFruitCoordinates();
 }
-
 
 function draw() {
   background(255,239,213);
@@ -28,11 +27,65 @@ function draw() {
   //
 
   //line(x, 20, x-60, 80);
+  createPlayer();
+  function createPlayer() {
+    stroke(activeColor);
+    fill(activeColor);
+    ellipse(playerX, playerY, 50, 50, 5);
+  }
 
-  ellipse(playerX, playerY, 50, 50);
-  fill(activeColor);
+  createFruit()
+
+  function createFruit() {
+    stroke(255, 255, 0);
+    strokeWeight(10);
+    point(300, 300);
+  }
   updatePlayerCoordinates();
+  checkForFruit();
 }
+
+function checkForFruit() {
+  point(xFruit, yFruit);
+  // if (xCor[xCor.length - 1] === xFruit && yCor[yCor.length - 1] === yFruit) {
+  //   var prevScore = parseInt(scoreElem.html().substring(8));
+  //   scoreElem.html('Score = ' + (prevScore + 1));
+  //   xCor.unshift(xCor[0]);
+  //   yCor.unshift(yCor[0]);
+  //   numSegments++;
+  //   updateFruitCoordinates();
+  //   player3.start();
+  //   if (prevScore == 19) {
+  //     player.playbackRate = 1.02;
+  //   } else if (prevScore == 39) {
+  //     player.playbackRate = 1.04;
+  //   } else if (prevScore == 59) {
+  //     player.playbackRate = 1.08
+  //   } else if (prevScore == 79) {
+  //     player.playbackRate = 1.10
+  //   } else if (prevScore == 99) {
+  //     player.playbackRate == 1.12
+  //   }
+  // }
+}
+
+
+
+function updateFruitCoordinates() {
+  /*
+    The complex math logic is because I wanted the point to lie
+    in between 100 and width-100, and be rounded off to the nearest
+    number divisible by 10, since I move the snake in multiples of 10.
+  */
+  xFruit = floor(random(10, (width - 100) / 10)) * 10;
+  yFruit = floor(random(10, (height - 100) / 10)) * 10;
+  stroke(255);
+  r = random(255);
+  g = random(255);
+  b = random(255);
+}
+
+
 
 function updatePlayerCoordinates() {
 
