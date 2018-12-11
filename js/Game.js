@@ -11,7 +11,19 @@ var direction;
 var playerX = intX;
 var playerY = intY;
 var activeKey;
+var fruitArray = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+function FruitGenerator(id, color, x, y) {
+  this.id = id;
+  this.color = color;
+  this.x = x;
+  this.y = y;
+  }
 
+//Generating all le fruit objects.
+for (i = 0; i < fruitArray.length; i++) {
+fruitArray[i] = new FruitGenerator(i, "red", Math.floor(Math.random() * 1000), Math.floor(Math.random() * 780));
+console.log(fruitArray);
+}
 
 function setup() {
   var myCanvas = createCanvas(1000, 780);
@@ -37,16 +49,17 @@ function draw() {
   createFruit()
 
   function createFruit() {
-    stroke(255, 255, 0);
-    strokeWeight(10);
-    point(300, 300);
+    for (i = 0; i < fruitArray.length; i++) {
+      stroke(fruitArray[i].color)
+      strokeWeight(20);
+      point(fruitArray[i].x, fruitArray[i].y )
+    }
   }
   updatePlayerCoordinates();
   checkForFruit();
 }
 
 function checkForFruit() {
-  point(xFruit, yFruit);
   // if (xCor[xCor.length - 1] === xFruit && yCor[yCor.length - 1] === yFruit) {
   //   var prevScore = parseInt(scoreElem.html().substring(8));
   //   scoreElem.html('Score = ' + (prevScore + 1));
