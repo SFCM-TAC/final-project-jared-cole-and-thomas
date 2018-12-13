@@ -23,7 +23,17 @@ function FruitGenerator(id, color, x, y) {
 
 //Generating all le fruit objects. Yay yay again.
 for (i = 0; i < fruitArray.length; i++) {
-fruitArray[i] = new FruitGenerator(i, "red", Math.floor(Math.random() * 1000), Math.floor(Math.random() * 780));
+  var fruitColor
+
+    if (i < 5) {
+      fruitColor = "red";
+    } if (i > 4 && i < 10) {
+      fruitColor = 'yellow';
+    } if (i > 9) {
+      fruitColor = 'blue';
+    }
+
+fruitArray[i] = new FruitGenerator(i, fruitColor, Math.floor(Math.random() * 1000), Math.floor(Math.random() * 780));
 console.log(fruitArray);
 }
 
@@ -60,16 +70,16 @@ function draw() {
   updatePlayerCoordinates();
   // checkForFruit();
 
-  for (let i = 0; i < bubbles.length; i++) {
-      bubbles[i].update();
-      bubbles[i].display();
-      for (let j = 0; j < bubbles.length; j++) {
-        if (i != j && bubbles[i].intersects(bubbles[j])) {
-          bubbles[i].changeColor();
-          bubbles[j].changeColor();
-        }
-      }
-    }
+  // for (let i = 0; i < bubbles.length; i++) {
+  //     bubbles[i].update();
+  //     bubbles[i].display();
+  //     for (let j = 0; j < bubbles.length; j++) {
+  //       if (i != j && bubbles[i].intersects(bubbles[j])) {
+  //         bubbles[i].changeColor();
+  //         bubbles[j].changeColor();
+  //       }
+  //     }
+  //   }
 
 }
 
