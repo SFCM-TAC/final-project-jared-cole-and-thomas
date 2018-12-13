@@ -18,12 +18,21 @@ function FruitGenerator(id, color, x, y) {
   this.x = x;
   this.y = y;
 
+  intersects(other) {
+      var d = dist(this.x, this.y, other.x, other.y);
+      if (d < this.r + other.r) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+
 
   }
 
-//Generating all le fruit objects. Yay yay again.
+//Generating all le fruit objects. Yay yay again. hi
 for (i = 0; i < fruitArray.length; i++) {
-<<<<<<< HEAD
   var fruitColor
 
     if (i < 5) {
@@ -33,22 +42,11 @@ for (i = 0; i < fruitArray.length; i++) {
     } if (i > 9) {
       fruitColor = 'blue';
     }
-=======
-var fruitColor;
-
-  if (i < 5) {
-    fruitColor = 'red';
-  } if (i > 4 && i < 10) {
-    fruitColor = 'yellow';
-  } if (i > 9) {
-    fruitColor = 'blue';
-  }
->>>>>>> c64cf98865a7dea774ea2dab019dea34aa932343
 
 fruitArray[i] = new FruitGenerator(i, fruitColor, Math.floor(Math.random() * 1000), Math.floor(Math.random() * 780));
 console.log(fruitArray);
 }
-//setup comment
+
 function setup() {
   var myCanvas = createCanvas(1000, 780);
   myCanvas.parent('canvas');
@@ -65,9 +63,9 @@ function draw() {
   //line(x, 20, x-60, 80);
   createPlayer();
   function createPlayer() {
-    stroke(activeColor);
+    noStroke();
     fill(activeColor);
-    ellipse(playerX, playerY, 50, 50, 5);
+    ellipse(playerX, playerY, 60, 60, 5);
   }
 
   createFruit()
