@@ -18,22 +18,12 @@ function FruitGenerator(id, color, x, y) {
   this.x = x;
   this.y = y;
 
-  
+
   }
 
 //Generating all le fruit objects.
 for (i = 0; i < fruitArray.length; i++) {
-var fruitColor;
-
-  if (i < 5) {
-    fruitColor = 'red';
-  } if (i > 4 && i < 10) {
-    fruitColor = 'yellow';
-  } if (i > 9) {
-fruitColor = 'blue';
-  }
-
-fruitArray[i] = new FruitGenerator(i, fruitColor, Math.floor(Math.random() * 1000), Math.floor(Math.random() * 780));
+fruitArray[i] = new FruitGenerator(i, "red", Math.floor(Math.random() * 1000), Math.floor(Math.random() * 780));
 console.log(fruitArray);
 }
 
@@ -45,7 +35,7 @@ function setup() {
 }
 
 function draw() {
-  background(255,255,255);
+  background(255,239,213);
   // if (keyIsPressed == true) { // If the key is pressed,
   //   intX+=2.5;                      // add 1 to x.
   //
@@ -53,9 +43,9 @@ function draw() {
   //line(x, 20, x-60, 80);
   createPlayer();
   function createPlayer() {
-    noStroke();
+    stroke(activeColor);
     fill(activeColor);
-    ellipse(playerX, playerY, 60, 60, 5);
+    ellipse(playerX, playerY, 50, 50, 5);
   }
 
   createFruit()
