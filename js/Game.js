@@ -135,98 +135,116 @@ function updateFruitCoordinates() {
 
 function updatePlayerCoordinates() {
 
+  if (keyIsDown(37))  {
 
-  switch (direction) {
-    case 'right':
-        playerX += playerSpeed;
+    playerSpeed = 6;
+    playerX -= playerSpeed;
 
-      break;
+  }   if (keyIsDown(39))  {
 
-      case 'left':
+      playerSpeed = 6;
+      playerX += playerSpeed;
 
-        playerX -= playerSpeed;
+  }  if (keyIsDown(40))  {
 
-        break;
-
-    case 'up':
-
-      playerY -= playerSpeed;
-
-      break;
-
-    case 'down':
-
+      playerSpeed = 6;
       playerY += playerSpeed;
 
-      break;
+  }  if (keyIsDown(38))  {
 
-    case 'static':
+      playerSpeed = 6;
+      playerY -= playerSpeed;
 
-      break;
-
-    // case 'northEast':
-    //
-    //   playerX += playerSpeed;
-    //   playerY -+ playerSpeed;
-    //
-    // case 'northWest':
-    //
-    //   playerX -+ playerSpeed
-    //   playerY -+ playerSpeed;
-
+    }
   }
-}
-
-function keyPressed() {
-
-var activeKey = keyCode;
-
-console.log(activeKey);
-    switch (keyCode) {
-      case 37:
-
-      // if (direction = 'up') {
-      //     direction = 'northWest';
-      //   } else {
-
-          direction = 'left'
 
 
-        break;
-      case 39:
-
-          direction = 'right';
-
-        break;
-      case 38:
-
-      // if (direction = 'right') {
-      //     direction = 'northEast'
-      // }
-
-          direction = 'up';
-
-        break;
-      case 40:
-
-          direction = 'down';
-
-        break;
-
-
-        }
-
-      }
+// function updatePlayerCoordinates() {
+//
+//
+//   switch (direction) {
+//     case 'right':
+//         playerSpeed = 6;
+//         playerX += playerSpeed;
+//
+//       break;
+//
+//       case 'left':
+//         playerSpeed = 6;
+//         playerX -= playerSpeed;
+//
+//         break;
+//
+//     case 'up':
+//       playerSpeed = 6;
+//       playerY -= playerSpeed;
+//
+//       break;
+//
+//     case 'down':
+//       playerSpeed = 6;
+//       playerY += playerSpeed;
+//
+//       break;
+//
+//     case 'static':
+//
+//       break;
+//
+//   }
+// }
+//
+// function keyPressed() {
+//
+// var activeKey = keyCode;
+//
+// console.log(activeKey);
+//     switch (keyCode) {
+//       case 37:
+//
+//       // if (direction = 'up') {
+//       //     direction = 'northWest';
+//       //   } else {
+//
+//           direction = 'left'
+//
+//
+//         break;
+//       case 39:
+//
+//           direction = 'right';
+//
+//         break;
+//       case 38:
+//
+//       // if (direction = 'right') {
+//       //     direction = 'northEast'
+//       // }
+//
+//           direction = 'up';
+//
+//         break;
+//       case 40:
+//
+//           direction = 'down';
+//
+//         break;
+//
+//
+//         }
+//
+//       }
 
   function keyReleased () {
 
+  playerSpeed = 0;
 
     console.log(activeKey);
 
     // if (keyCode == activeKey) {
     //
-      console.log('static');
-        direction = 'static';
+      console.log('circle stopped');
+        direction = 'stopped';
 
     }
 
