@@ -30,13 +30,13 @@ var fruitColor;
   } if (i > 4 && i < 10) {
     fruitColor = 'yellow';
   } if (i > 9) {
-fruitColor = 'blue';
+    fruitColor = 'blue';
   }
 
 fruitArray[i] = new FruitGenerator(i, fruitColor, Math.floor(Math.random() * 1000), Math.floor(Math.random() * 780));
 console.log(fruitArray);
 }
-
+//setup comment
 function setup() {
   var myCanvas = createCanvas(1000, 780);
   myCanvas.parent('canvas');
