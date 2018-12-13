@@ -21,7 +21,7 @@ function FruitGenerator(id, color, x, y) {
 
   }
 
-//Generating all le fruit objects.
+//Generating all le fruit objects. Yay
 for (i = 0; i < fruitArray.length; i++) {
 fruitArray[i] = new FruitGenerator(i, "red", Math.floor(Math.random() * 1000), Math.floor(Math.random() * 780));
 console.log(fruitArray);
