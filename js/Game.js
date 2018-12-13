@@ -19,7 +19,7 @@ function FruitGenerator(id, color, x, y) {
   this.y = y;
   }
 
-//Generating all le fruit objects.
+//Generating all le fruit objects. Yay
 for (i = 0; i < fruitArray.length; i++) {
 var fruitColor;
 
