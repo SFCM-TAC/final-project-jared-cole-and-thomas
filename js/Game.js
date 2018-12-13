@@ -17,6 +17,8 @@ function FruitGenerator(id, color, x, y) {
   this.color = color;
   this.x = x;
   this.y = y;
+
+  
   }
 
 //Generating all le fruit objects.
@@ -56,7 +58,19 @@ function draw() {
     }
   }
   updatePlayerCoordinates();
-  checkForFruit();
+  // checkForFruit();
+
+  for (let i = 0; i < bubbles.length; i++) {
+      bubbles[i].update();
+      bubbles[i].display();
+      for (let j = 0; j < bubbles.length; j++) {
+        if (i != j && bubbles[i].intersects(bubbles[j])) {
+          bubbles[i].changeColor();
+          bubbles[j].changeColor();
+        }
+      }
+    }
+
 }
 
 function checkForFruit() {
