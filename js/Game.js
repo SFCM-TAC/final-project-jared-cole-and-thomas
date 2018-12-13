@@ -18,10 +18,10 @@ function FruitGenerator(id, color, x, y) {
   this.x = x;
   this.y = y;
 
-  
+
   }
 
-//Generating all le fruit objects. Yay
+//Generating all le fruit objects. Yay yay again.
 for (i = 0; i < fruitArray.length; i++) {
 var fruitColor;
 
