@@ -12,18 +12,19 @@ var playerX = intX;
 var playerY = intY;
 var activeKey;
 var fruitArray = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
-var r = 10
+var r = 27
+var player = null
 function FruitGenerator(id, color, x, y) {
   this.id = id;
   this.color = color;
   this.x = x;
   this.y = y;
 
-  this.intersects = function(other) {
-      var d = dist(this.x, this.y, other.x, other.y);
-      if (d < this.r + other.r) {
-        return true;
+  this.intersects = function() {
+      var d = dist(this.x, this.y, playerX, playerY);
+      if (d < this.r + 60) {
         console.log(true);
+        return true;
       } else {
         return false;
       }
@@ -67,7 +68,7 @@ function draw() {
   function createPlayer() {
     noStroke();
     fill(activeColor);
-    ellipse(playerX, playerY, 60, 60, 5);
+    player = ellipse(playerX, playerY, 60, 60, 5);
   }
 
   createFruit()
@@ -82,13 +83,11 @@ function draw() {
   updatePlayerCoordinates();
   // checkForFruit();
 
-  for (let i = 0; i < fruitArray.length; i++) {
-      for (let j = 0; j < fruitArray.length; j++) {
-        if (i != j && fruitArray[i].intersects(fruitArray[j])) {
+  for (i = 0; i < fruitArray.length; i++) {
+        if (fruitArray[i].intersects(player)) {
           this.x = 0;
           this.y = 0;
         }
-      }
     }
 
 }
