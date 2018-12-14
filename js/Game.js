@@ -6,7 +6,7 @@ var activeColor = 0;
 var targetColor = null;
 var intX = 50;
 var intY = 50;
-var playerSpeed = 6;
+var playerSpeed = 0;
 var direction;
 var playerX = intX;
 var playerY = intY;
@@ -14,6 +14,8 @@ var playerR = 30
 var activeKey;
 var fruitArray = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
 var playerBall = null
+
+
 function FruitGenerator(id, color, x, y) {
   this.id = id;
   this.color = color;
@@ -49,6 +51,7 @@ for (i = 0; i < fruitArray.length; i++) {
 fruitArray[i] = new FruitGenerator(i, fruitColor, Math.floor(Math.random() * 1000), Math.floor(Math.random() * 780));
 console.log(fruitArray);
 }
+
 
 function setup() {
   var myCanvas = createCanvas(1000, 780);
@@ -129,31 +132,120 @@ function updateFruitCoordinates() {
 }
 
 
+//global last key state
+
+var dateKeyPressed = {left:0, right:0, up:0, down:0};
 
 function updatePlayerCoordinates() {
 
-  if (keyIsDown(37))  {
+  var checkForDiag = 0;
 
-    playerSpeed = 6;
-    playerX -= playerSpeed;
+//reset most recent key counter
 
-  }   if (keyIsDown(39))  {
+    if (!keyIsDown(37))  {
+      dateKeyPressed.left = 0;
+  } if (!keyIsDown(39))  {
+      dateKeyPressed.right = 0;
 
+  }  if (!keyIsDown(38))  {
+      dateKeyPressed.up = 0;
+
+  }   if (!keyIsDown(40))  {
+      dateKeyPressed.down = 0;
+  }
+    if (keyIsDown(37))  {
+      dateKeyPressed.left++;
+  } if (keyIsDown(39))  {
+      dateKeyPressed.right++;
+  }  if (keyIsDown(38))  {
+      dateKeyPressed.up++;
+  }   if (keyIsDown(40))  {
+      dateKeyPressed.down++;
+  }
+
+
+    //move left
+
+      if (keyIsDown(37))  {
+        console.log(dateKeyPressed);
+        // console.log(dateKeyPressed.left <= dateKeyPressed.right)
+        if (!keyIsDown(39) || (dateKeyPressed.right != 0 && dateKeyPressed.left <= dateKeyPressed.right)) {
+          console.log('left: true')
+          // checkForDiag++
+          playerSpeed = 6;
+          playerX -= playerSpeed;
+
+        }
+
+    //move right
+
+    }  if (keyIsDown(39))  {
+console.log(dateKeyPressed);
+        if (!keyIsDown(37) || (dateKeyPressed.left != 0 && dateKeyPressed.right <= dateKeyPressed.left)) {
+          console.log('right: true')
+      checkForDiag++;
       playerSpeed = 6;
       playerX += playerSpeed;
 
-  }  if (keyIsDown(40))  {
+    }
+      // console.log(whichKeyDown.left);
+      // console.log(whichKeyDown.right);
+    //move up
 
-      playerSpeed = 6;
-      playerY += playerSpeed;
+  }   if (keyIsDown(38))  {
 
-  }  if (keyIsDown(38))  {
-
+      if (!keyIsDown(40) || (dateKeyPressed.down != 0 && dateKeyPressed.up <= dateKeyPressed.down)) {
+          console.log('up: true')
+      checkForDiag++;
       playerSpeed = 6;
       playerY -= playerSpeed;
+      console.log(dateKeyPressed);
 
     }
-  }
+    //move down
+
+  }   if (keyIsDown(40))  {
+      if (!keyIsDown(38) || (dateKeyPressed.up != 0 && dateKeyPressed.down <= dateKeyPressed.up)) {
+          console.log('down: true')
+      checkForDiag++;
+      playerSpeed = 6;
+      playerY += playerSpeed;
+      console.log(dateKeyPressed);
+
+    }
+      //normalize player speed on diagonals
+
+    }  if (checkForDiag >= 2) {
+
+      console.log('diagonal');
+      playerSpeed = playerSpeed * .7071;      //.7071
+      // console.log(playerSpeed);
+
+    }
+
+
+
+
+
+    //if opposit keys pressed, auto release original one
+
+
+
+    function keyReleased () {
+
+
+
+    playerSpeed = 0;
+
+      console.log(activeKey);
+
+      // if (keyCode == activeKey) {
+      //
+        // console.log('circle stopped');
+
+      }
+
+    }
 
 
 // function updatePlayerCoordinates() {
@@ -232,18 +324,7 @@ function updatePlayerCoordinates() {
 //
 //       }
 
-  function keyReleased () {
 
-  playerSpeed = 0;
-
-    console.log(activeKey);
-
-    // if (keyCode == activeKey) {
-    //
-      console.log('circle stopped');
-        direction = 'stopped';
-
-    }
 
     function changeColor(i) {
       activeColor = colorArray[i];
