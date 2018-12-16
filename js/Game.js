@@ -2,7 +2,7 @@ var colorArray = ["#ffffe6", '#ffffb3', '#ffff80', '#ffff4d', '#ffff00', '#e6e6f
 '#0000ff', '#ffe6e6', '#ffb3b3', '#ff8080', '#ff4d4d', '#ff0000', '#c2f0c2', '#70db70', '#33cc33']
 // https://docs.google.com/spreadsheets/d/1JUNLNtl6CRTiltI8jAwZnrOFMIBA09qlZisQthpelAY/edit?usp=sharing
 // link to a spreadsheet with color information/relationships
-var activeColor = 0;
+var activeColor = 'black';
 var targetColor = null;
 var intX = 50;
 var intY = 50;
@@ -15,6 +15,9 @@ var activeKey;
 var fruitArray = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
 var playerBall = null
 
+var powerUp = new Tone.Player("./sounds/Powerup1.wav").toMaster();
+//play as soon as the buffer is loaded
+
 
 function FruitGenerator(id, color, x, y) {
   this.id = id;
@@ -25,7 +28,7 @@ function FruitGenerator(id, color, x, y) {
   this.intersects = function(playerX, playerY) {
       var d = dist(this.x, this.y, playerX, playerY);
       if (d < 10 + playerR) {
-        console.log(true);
+
         return true;
       } else {
         return false;
@@ -34,22 +37,30 @@ function FruitGenerator(id, color, x, y) {
 
 
 
-  }
+}
+
+// function changeColor(i) {
+//   activeColor = colorArray[i];
+
+// }
+function changeColor(color) {
+  activeColor = color;
+}
 
 //Generating all le fruit objects. Yay yay again. hi
 for (i = 0; i < fruitArray.length; i++) {
   var fruitColor
 
     if (i < 5) {
-      fruitColor = "red";
+      fruitColor = 'red';
     } if (i > 4 && i < 10) {
       fruitColor = 'yellow';
     } if (i > 9) {
       fruitColor = 'blue';
     }
 
-fruitArray[i] = new FruitGenerator(i, fruitColor, Math.floor(Math.random() * 1000), Math.floor(Math.random() * 780));
-console.log(fruitArray);
+  fruitArray[i] = new FruitGenerator(i, fruitColor, Math.floor(Math.random() * 1000), Math.floor(Math.random() * 780));
+
 }
 
 
@@ -67,12 +78,6 @@ function draw() {
   //
 
   //line(x, 20, x-60, 80);
-  createPlayer();
-  function createPlayer() {
-    noStroke();
-    fill(activeColor);
-    ellipse(playerX, playerY, playerR * 2, playerR * 2, 5);
-  }
 
   createFruit()
 
@@ -87,12 +92,22 @@ function draw() {
   // checkForFruit();
 
   for (i = 0; i < fruitArray.length; i++) {
-        if (fruitArray[i].intersects(playerX, playerY)) {
+        if (fruitArray[i].intersects(playerX, playerY)) { //Collision
           fruitArray[i].x = 0;
           fruitArray[i].y = 0;
+
+          powerUp.start();
+          changeColor(fruitArray[i].color);
+
         }
     }
 
+    createPlayer();
+    function createPlayer() {
+      noStroke();
+      fill(activeColor);
+      ellipse(playerX, playerY, playerR * 2, playerR * 2, 5);
+    }
 }
 
 function checkForFruit() {
@@ -116,6 +131,7 @@ function checkForFruit() {
   //     player.playbackRate == 1.12
   //   }
   // }
+
 }
 
 
@@ -167,10 +183,10 @@ function updatePlayerCoordinates() {
     //move left
 
       if (keyIsDown(37))  {
-        console.log(dateKeyPressed);
-        // console.log(dateKeyPressed.left <= dateKeyPressed.right)
+
+
         if (!keyIsDown(39) || (dateKeyPressed.right != 0 && dateKeyPressed.left <= dateKeyPressed.right)) {
-          console.log('left: true')
+
           // checkForDiag++
           playerSpeed = 6;
           playerX -= playerSpeed;
@@ -180,46 +196,46 @@ function updatePlayerCoordinates() {
     //move right
 
     }  if (keyIsDown(39))  {
-console.log(dateKeyPressed);
+
         if (!keyIsDown(37) || (dateKeyPressed.left != 0 && dateKeyPressed.right <= dateKeyPressed.left)) {
-          console.log('right: true')
+
       checkForDiag++;
       playerSpeed = 6;
       playerX += playerSpeed;
 
     }
-      // console.log(whichKeyDown.left);
-      // console.log(whichKeyDown.right);
+
+
     //move up
 
   }   if (keyIsDown(38))  {
 
       if (!keyIsDown(40) || (dateKeyPressed.down != 0 && dateKeyPressed.up <= dateKeyPressed.down)) {
-          console.log('up: true')
+
       checkForDiag++;
       playerSpeed = 6;
       playerY -= playerSpeed;
-      console.log(dateKeyPressed);
+
 
     }
     //move down
 
   }   if (keyIsDown(40))  {
       if (!keyIsDown(38) || (dateKeyPressed.up != 0 && dateKeyPressed.down <= dateKeyPressed.up)) {
-          console.log('down: true')
+
       checkForDiag++;
       playerSpeed = 6;
       playerY += playerSpeed;
-      console.log(dateKeyPressed);
+
 
     }
       //normalize player speed on diagonals
 
     }  if (checkForDiag >= 2) {
 
-      console.log('diagonal');
+
       playerSpeed = playerSpeed * .7071;      //.7071
-      // console.log(playerSpeed);
+
 
     }
 
@@ -237,11 +253,11 @@ console.log(dateKeyPressed);
 
     playerSpeed = 0;
 
-      console.log(activeKey);
+
 
       // if (keyCode == activeKey) {
       //
-        // console.log('circle stopped');
+
 
       }
 
@@ -287,7 +303,7 @@ console.log(dateKeyPressed);
 //
 // var activeKey = keyCode;
 //
-// console.log(activeKey);
+
 //     switch (keyCode) {
 //       case 37:
 //
@@ -323,10 +339,3 @@ console.log(dateKeyPressed);
 //         }
 //
 //       }
-
-
-
-    function changeColor(i) {
-      activeColor = colorArray[i];
-      console.log(activeColor);
-    }
