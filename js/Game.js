@@ -6,14 +6,20 @@ var activeColor = 'black';
 var targetColor = null;
 var intX = 50;
 var intY = 50;
-var playerSpeed = 0;
 var direction;
 var playerX = intX;
 var playerY = intY;
-var playerR = 30
+var playerR = 30;
 var activeKey;
 var fruitArray = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
-var playerBall = null
+var playerBall = null;
+var canvasWidth = 1000;
+var canvasHeight = 780;
+
+var img
+function preload(){
+  img = loadImage('./sprites/kirbys_face_smash_bros_series_icon_by_mrthatkidalex24_d9ujw38-pre.png');
+}
 
 var powerUp = new Tone.Player("./sounds/Powerup1.wav").toMaster();
 //play as soon as the buffer is loaded
@@ -65,7 +71,7 @@ for (i = 0; i < fruitArray.length; i++) {
 
 
 function setup() {
-  var myCanvas = createCanvas(1000, 780);
+  var myCanvas = createCanvas(canvasWidth, canvasHeight);
   myCanvas.parent('canvas');
   frameRate(60);
   updateFruitCoordinates();
@@ -93,19 +99,23 @@ function draw() {
 
   for (i = 0; i < fruitArray.length; i++) {
         if (fruitArray[i].intersects(playerX, playerY)) { //Collision
-          fruitArray[i].x = 0;
-          fruitArray[i].y = 0;
 
           powerUp.start();
           changeColor(fruitArray[i].color);
+          playerR += 5;
 
+          fruitArray.splice(i, 1);
         }
     }
 
     createPlayer();
     function createPlayer() {
+      image(img, playerX - playerR, playerY - playerR, playerR * 2, playerR * 2, 5);
+      //filter(THRESHOLD);
       noStroke();
-      fill(activeColor);
+      var c = color(activeColor);
+      c.setAlpha(128);
+      fill(c);
       ellipse(playerX, playerY, playerR * 2, playerR * 2, 5);
     }
 }
@@ -154,7 +164,6 @@ var dateKeyPressed = {left:0, right:0, up:0, down:0};
 
 function updatePlayerCoordinates() {
 
-  var checkForDiag = 0;
 
 //reset most recent key counter
 
@@ -180,64 +189,66 @@ function updatePlayerCoordinates() {
   }
 
 
+    //change in position, normalized to 1
+    var deltaX = 0;
+    var deltaY = 0;
+    var playerSpeed = 0;
+    var checkForDiag = 0;
+
     //move left
-
       if (keyIsDown(37))  {
-
-
         if (!keyIsDown(39) || (dateKeyPressed.right != 0 && dateKeyPressed.left <= dateKeyPressed.right)) {
-
-          // checkForDiag++
-          playerSpeed = 6;
-          playerX -= playerSpeed;
-
+          checkForDiag++;
+          deltaX = -1;
         }
 
     //move right
 
     }  if (keyIsDown(39))  {
-
         if (!keyIsDown(37) || (dateKeyPressed.left != 0 && dateKeyPressed.right <= dateKeyPressed.left)) {
-
-      checkForDiag++;
-      playerSpeed = 6;
-      playerX += playerSpeed;
-
-    }
+          checkForDiag++;
+          deltaX = 1;
+        }
 
 
     //move up
 
-  }   if (keyIsDown(38))  {
-
+    }   if (keyIsDown(38))  {
       if (!keyIsDown(40) || (dateKeyPressed.down != 0 && dateKeyPressed.up <= dateKeyPressed.down)) {
-
-      checkForDiag++;
-      playerSpeed = 6;
-      playerY -= playerSpeed;
-
-
-    }
+        checkForDiag++;
+        deltaY = -1;
+      }
     //move down
 
-  }   if (keyIsDown(40))  {
+    }   if (keyIsDown(40))  {
       if (!keyIsDown(38) || (dateKeyPressed.up != 0 && dateKeyPressed.down <= dateKeyPressed.up)) {
-
-      checkForDiag++;
-      playerSpeed = 6;
-      playerY += playerSpeed;
-
-
+        checkForDiag++;
+        deltaY = 1;
+      }
     }
-      //normalize player speed on diagonals
+    //scale player speed
+    playerSpeed = 6;
 
-    }  if (checkForDiag >= 2) {
-
-
+    //normalize player speed on diagonals
+      if (checkForDiag >= 2) {
       playerSpeed = playerSpeed * .7071;      //.7071
-
-
     }
+    deltaX *= playerSpeed;
+    deltaY *= playerSpeed;
+    console.log(deltaX, deltaY);
+
+    var newX = playerX + deltaX;
+    var newY = playerY + deltaY;
+
+    //move the player only if inside canvas bounds
+    if (newX < canvasWidth && newX > 0) {
+      playerX = newX;
+    }
+    if (newY < canvasHeight && newY > 0) {
+      playerY = newY;
+    }
+
+
 
 
 
@@ -251,7 +262,7 @@ function updatePlayerCoordinates() {
 
 
 
-    playerSpeed = 0;
+      // playerSpeed = 0;
 
 
 
@@ -259,9 +270,9 @@ function updatePlayerCoordinates() {
       //
 
 
-      }
-
     }
+
+}
 
 
 // function updatePlayerCoordinates() {
