@@ -99,16 +99,8 @@ activeColor = colorArray[newIndex].hex;
 index = 0
 }
 
-function nextLevel() {
-  if (activeColor == targetColor) {
-
-  }
-}
-
-
-
 function fruitGeneration() {
-for (i = 0; i < fruitArray.length; i++) {
+for (i = 0; i < 15; i++) {
   var fruitColor
 
     if (i < 5) {
@@ -190,12 +182,30 @@ function createLake() {
 
           powerUp.start();
           changeColor(fruitArray[i].color);
-          nextLevel();
-          playerR += 5;
 
           fruitArray.splice(i, 1);
         }
     }
+
+    if (playerX >= 450 && playerX <= 550 && playerY >= 350 && playerY <= 450 ) {
+      if (activeColor == targetColor) {
+        fruitGeneration();
+        randomAnswerColor();
+        activeColor = 'white'
+        pRed = 0
+        pBlue = 0
+        pYellow = 0
+        playerR += 5;
+      } else {
+        activeColor = 'white'
+        pRed = 0
+        pBlue = 0
+        pYellow = 0
+        activeColor = 'white'
+        fruitGeneration();
+      }
+    }
+
 
     createPlayer();
     function createPlayer() {
