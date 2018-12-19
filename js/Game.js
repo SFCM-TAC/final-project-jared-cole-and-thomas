@@ -1,5 +1,7 @@
-var colorArray = ["#ffffe6", '#ffffb3', '#ffff80', '#ffff4d', '#ffff00', '#e6e6ff', '#b3b3ff', '#8080ff', '#4d4dff',
-'#0000ff', '#ffe6e6', '#ffb3b3', '#ff8080', '#ff4d4d', '#ff0000', '#c2f0c2', '#70db70', '#33cc33']
+var colorArray = new Array(54);
+
+// ["#ffffe6", '#ffffb3', '#ffff80', '#ffff4d', '#ffff00', '#e6e6ff', '#b3b3ff', '#8080ff', '#4d4dff',
+// '#0000ff', '#ffe6e6', '#ffb3b3', '#ff8080', '#ff4d4d', '#ff0000', '#c2f0c2', '#70db70', '#33cc33']
 // https://docs.google.com/spreadsheets/d/1JUNLNtl6CRTiltI8jAwZnrOFMIBA09qlZisQthpelAY/edit?usp=sharing
 // link to a spreadsheet with color information/relationships
 var activeColor = 'black';
@@ -15,6 +17,9 @@ var fruitArray = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
 var playerBall = null;
 var canvasWidth = 1000;
 var canvasHeight = 780;
+var red = 0
+var blue = 0
+var yellow = 0
 
 var img
 function preload(){
@@ -40,10 +45,15 @@ function FruitGenerator(id, color, x, y) {
         return false;
       }
     }
-
-
-
 }
+function ColorGenerator(hex, red, yellow, blue) {
+  this.hex = hex;
+  this.red = red;
+  this.yellow = yellow;
+  this.blue = blue;
+}
+
+
 
 // function changeColor(i) {
 //   activeColor = colorArray[i];
@@ -69,6 +79,32 @@ for (i = 0; i < fruitArray.length; i++) {
 
 }
 
+
+
+for (i = 0; i <colorArray.length; i++) {
+
+  if (red !=  3) {
+    if (yellow != 3) {
+      if (blue != 3)  {
+        blue += 1;
+      } else {yellow += 1;
+              blue = 0;}
+    } else {red += 1
+            yellow = 0
+            blue = 0}
+  } else { if (yellow != 3) {
+    if (blue != 3)  {
+      blue += 1;
+    } else {yellow += 1;
+            blue = 0;}
+  } else { if (blue != 3)  {
+    blue += 1;
+  }
+ }
+}
+
+  colorArray[i] = new ColorGenerator(colorArray[i], red, yellow, blue );
+}
 
 function setup() {
   var myCanvas = createCanvas(canvasWidth, canvasHeight);
@@ -235,7 +271,7 @@ function updatePlayerCoordinates() {
     }
     deltaX *= playerSpeed;
     deltaY *= playerSpeed;
-    console.log(deltaX, deltaY);
+    // console.log(deltaX, deltaY);
 
     var newX = playerX + deltaX;
     var newY = playerY + deltaY;
