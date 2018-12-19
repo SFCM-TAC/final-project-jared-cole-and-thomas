@@ -203,6 +203,8 @@ function createLake() {
         pYellow = 0
         activeColor = 'white'
         fruitGeneration();
+        playerX = 400
+        playerY = 300
       }
     }
 
