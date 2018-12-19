@@ -1,10 +1,10 @@
-var colorArray = new Array(54);
+// var colorArray = new Array(54);
 
 // ["#ffffe6", '#ffffb3', '#ffff80', '#ffff4d', '#ffff00', '#e6e6ff', '#b3b3ff', '#8080ff', '#4d4dff',
 // '#0000ff', '#ffe6e6', '#ffb3b3', '#ff8080', '#ff4d4d', '#ff0000', '#c2f0c2', '#70db70', '#33cc33']
 // https://docs.google.com/spreadsheets/d/1JUNLNtl6CRTiltI8jAwZnrOFMIBA09qlZisQthpelAY/edit?usp=sharing
 // link to a spreadsheet with color information/relationships
-var activeColor = 'black';
+var activeColor = 'white';
 var targetColor = null;
 var intX = 50;
 var intY = 50;
@@ -17,9 +17,16 @@ var fruitArray = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
 var playerBall = null;
 var canvasWidth = 1000;
 var canvasHeight = 780;
-var red = 0
-var blue = 0
-var yellow = 0
+var fRed = 0
+var fBlue = 0
+var fYellow = 0
+var pRed = 0
+var pBlue = 0
+var pYellow = 0
+var blueA = null;
+var index = 0
+var newIndex = 0;
+var answer;
 
 var img
 function preload(){
@@ -48,9 +55,9 @@ function FruitGenerator(id, color, x, y) {
 }
 function ColorGenerator(hex, red, yellow, blue) {
   this.hex = hex;
-  this.red = red;
-  this.yellow = yellow;
-  this.blue = blue;
+  this.red = fRed;
+  this.yellow = fYellow;
+  this.blue = fBlue;
 }
 
 
@@ -60,10 +67,47 @@ function ColorGenerator(hex, red, yellow, blue) {
 
 // }
 function changeColor(color) {
-  activeColor = color;
+  switch (color) {
+    case 'red':
+      pRed += 1;
+      break;
+    case 'yellow':
+      pYellow += 1;
+      break;
+    case 'blue':
+      pBlue += 1;
+      break;
+    }
+var query = {red: pRed, blue: pBlue, yellow: pYellow};
+
+var result = colorArray.filter(search, query);
+
+function search(colorArray){
+
+ if (Object.keys(this).every((key) => colorArray[key] === this[key])) {
+   console.log(true);
+   console.log(index);
+   newIndex = index
+
+ } else {
+   index ++;
+   console.log(false);
+  }
+ }
+console.log(colorArray[newIndex].hex);
+activeColor = colorArray[newIndex].hex;
+index = 0
 }
 
-//Generating all le fruit objects. Yay yay again. hi
+function nextLevel() {
+  if (activeColor == targetColor) {
+
+  }
+}
+
+
+
+function fruitGeneration() {
 for (i = 0; i < fruitArray.length; i++) {
   var fruitColor
 
@@ -77,33 +121,33 @@ for (i = 0; i < fruitArray.length; i++) {
 
   fruitArray[i] = new FruitGenerator(i, fruitColor, Math.floor(Math.random() * 1000), Math.floor(Math.random() * 780));
 
+  }
 }
-
 
 
 for (i = 0; i <colorArray.length; i++) {
 
-  if (red !=  3) {
-    if (yellow != 3) {
-      if (blue != 3)  {
-        blue += 1;
-      } else {yellow += 1;
-              blue = 0;}
-    } else {red += 1
-            yellow = 0
-            blue = 0}
-  } else { if (yellow != 3) {
-    if (blue != 3)  {
-      blue += 1;
-    } else {yellow += 1;
-            blue = 0;}
-  } else { if (blue != 3)  {
-    blue += 1;
+  if (fRed !=  3) {
+    if (fYellow != 3) {
+      if (fBlue != 3)  {
+        fBlue += 1;
+      } else {fYellow += 1;
+              fBlue = 0;}
+    } else {fRed += 1
+            fYellow = 0
+            fBlue = 0}
+  } else { if (fYellow != 3) {
+    if (fBlue != 3)  {
+      fBlue += 1;
+    } else {fYellow += 1;
+            fBlue = 0;}
+  } else { if (fBlue != 3)  {
+    fBlue += 1;
   }
  }
 }
 
-  colorArray[i] = new ColorGenerator(colorArray[i], red, yellow, blue );
+  colorArray[i] = new ColorGenerator(colorArray[i], fRed, fYellow, fBlue );
 }
 
 function setup() {
@@ -111,6 +155,8 @@ function setup() {
   myCanvas.parent('canvas');
   frameRate(60);
   updateFruitCoordinates();
+  randomAnswerColor();
+  fruitGeneration();
 }
 
 function draw() {
@@ -120,7 +166,13 @@ function draw() {
   //
 
   //line(x, 20, x-60, 80);
+createLake();
 
+function createLake() {
+  noStroke();
+  fill('blue');
+  ellipse(500, 400, 100, 100, 5)
+}
   createFruit()
 
   function createFruit() {
@@ -138,6 +190,7 @@ function draw() {
 
           powerUp.start();
           changeColor(fruitArray[i].color);
+          nextLevel();
           playerR += 5;
 
           fruitArray.splice(i, 1);
@@ -283,31 +336,6 @@ function updatePlayerCoordinates() {
     if (newY < canvasHeight && newY > 0) {
       playerY = newY;
     }
-
-
-
-
-
-
-
-    //if opposit keys pressed, auto release original one
-
-
-
-    function keyReleased () {
-
-
-
-      // playerSpeed = 0;
-
-
-
-      // if (keyCode == activeKey) {
-      //
-
-
-    }
-
 }
 
 
