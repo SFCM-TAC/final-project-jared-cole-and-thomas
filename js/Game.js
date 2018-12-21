@@ -33,7 +33,7 @@ function preload(){
   img = loadImage('./sprites/kirbys_face_smash_bros_series_icon_by_mrthatkidalex24_d9ujw38-pre.png');
 }
 
-var powerUp = new Tone.Player("./sounds/Powerup1.wav").toMaster();
+var powerUp = new Tone.Player("./Sounds/Powerup1.wav").toMaster();
 //play as soon as the buffer is loaded
 
 
